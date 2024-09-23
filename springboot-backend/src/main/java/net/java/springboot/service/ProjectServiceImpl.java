@@ -1,70 +1,73 @@
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//import net.java.springboot.exception.ResourceNotFoundException;
-//import net.java.springboot.model.ProjectInfo;
-//import net.java.springboot.repository.ProjectInfoRepository;
-//
-//import java.util.List;
-//import java.util.Optional;
-//
-//@Service
-//public class ProjectServiceImpl implements ProjectInfoInterface {
-//
-//    @Autowired
-//    private ProjectInfoRepository projectInfoRepository;
-//
-//    // Get all projects
+// ProjectInfoServiceImpl.java
+package net.java.springboot.service;
+
+import net.java.springboot.dto.ProjectInfoDTO;
+import net.java.springboot.entity.ProjectInfo;
+import net.java.springboot.repository.ProjectInfoRepository;
+import net.java.springboot.service.ProjectInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class ProjectInfoServiceImpl implements ProjectInfoService {
+
+    private final ProjectInfoRepository projectInfoRepository;
+
+    @Autowired
+    public ProjectInfoServiceImpl(ProjectInfoRepository projectInfoRepository) {
+        this.projectInfoRepository = projectInfoRepository;
+    }
+
+    @Override
+    public ProjectInfoDTO createProjectInfo(ProjectInfoDTO projectInfoDTO) {
+        ProjectInfo projectInfo = convertToEntity(projectInfoDTO);
+        projectInfo = projectInfoRepository.save(projectInfo);
+        return convertToDTO(projectInfo);
+    }
+
+    @Override
+    public ProjectInfoDTO getProjectInfoById(Long projectId) {
+        ProjectInfo projectInfo = projectInfoRepository.findById(projectId)
+                .orElseThrow(() -> new RuntimeException("ProjectInfo not found"));
+        return convertToDTO(projectInfo);
+    }
+
+    @Override
+    public List<ProjectInfoDTO> getAllProjectInfos() {
+        return projectInfoRepository.findAll()
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
 //    @Override
-//    public List<ProjectInfo> getAllProjects() {
-//        return projectInfoRepository.findAll();
-//    }
-//
-//    // Create a new project
-//    @Override
-//    public ProjectInfo createProject(ProjectInfo projectInfo) {
-//        return projectInfoRepository.save(projectInfo);
-//    }
-//
-//    // Get project by id
-//    @Override
-//    public Optional<ProjectInfo> getProjectById(Long id) {
-//        return projectInfoRepository.findById(id);
-//    }
-//
-//    // Update project by id
-//    @Override
-//    public ProjectInfo updateProject1(Long id, ProjectInfo projectInfoDetails) {
-//        ProjectInfo existingProject = projectInfoRepository.findById(id)
-//                .orElseThrow(() -> new ResourceNotFoundException("Project not found with id: " + id));
-//
-//        existingProject.setProjectName(projectInfoDetails.getProjectName());
-//        existingProject.setDepartment(projectInfoDetails.getDepartment());
-//        existingProject.setLocation(projectInfoDetails.getLocation());
-//        existingProject.setClients(projectInfoDetails.getClients());
-//        existingProject.setProjectExpirationTime(projectInfoDetails.getProjectExpirationTime());
-//        existingProject.setProjectStartDate(projectInfoDetails.getProjectStartDate());
-//
-//        return projectInfoRepository.save(existingProject);
-//    }
-//
-//    // Delete project by id
-//    @Override
-//    public void deleteProject(Long id) {
-//        ProjectInfo projectInfo = projectInfoRepository.findById(id)
-//                .orElseThrow(() -> new ResourceNotFoundException("Project not found with id: " + id));
-//        projectInfoRepository.delete(projectInfo);
-//    }
-//
-//	@Override
-//	public ProjectInfo createProject(ProjectInfo projectInfo) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public ProjectInfo updateProject(Long id, ProjectInfo projectInfoDetails) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//}
+//    public ProjectInfoDTO updateProjectInfo(Long projectId, ProjectInfoDTO projectInfoDTO) {
+//        ProjectInfo projectInfo = projectInfoRepository.findById(projectId)
+//                .orElseThrow(() -> new RuntimeException("ProjectInfo not found"));
+//        projectInfo.setCompanyId(projectInfoDTO.getCompanyId());
+//        projectInfo.setProjectName(projectInfoDTO.getProjectName());
+//        projectInfo.setClient(projectInfoDTO.getClient());
+//        projectInfo.setStartDate(projectInfoDTO.getStartDate());
+//        projectInfo.setExpDate(projectInfoDTO.getExpDate());
+//        projectInfo
+    public ProjectInfo updateProjectInfo(Long id, ProjectInfo projectInfo) {
+        ProjectInfo existingProjectInfo = projectInfoRepository.findById(id).orElse(null);
+        if (existingProjectInfo != null) {
+            existingProjectInfo.setProjectName(projectInfo.getProjectName());
+            existingProjectInfo.setClient(projectInfo.getClient());
+            existingProjectInfo.setStartDate(projectInfo.getStartDate());
+            existingProjectInfo.setExpDate(projectInfo.getExpDate());
+            existingProjectInfo.setStatus(projectInfo.getStatus());
+            return projectInfoRepository.save(existingProjectInfo);
+        }
+        return null; // Or throw an exception if preferred
+    }
+
+    @Override
+    public void deleteProjectInfo(Long id) {
+        projectInfoRepository.deleteById(id);
+    }
+}

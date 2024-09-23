@@ -1,68 +1,65 @@
 package net.java.springboot.controller;
 
-import net.java.springboot.model.ProjectInfo;
-import net.java.springboot.repository.ProjectInfoRepository;
-import net.java.springboot.exception.ResourceNotFoundException;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import net.java.springboot.dto.ProjectInfoDTO;
+import net.java.springboot.entity.ProjectInfo;
+import net.java.springboot.exception.ResourceNotFoundException;
+import net.java.springboot.repository.ProjectInfoRepository;
+import net.java.springboot.service.ProjectInfoService;
 
 @RestController
-@RequestMapping("/api/v1/projects")
-@CrossOrigin("*")  // To allow requests from any domain (useful for frontend/backend separation)
+@RequestMapping("/projects")
+@CrossOrigin("*")
 public class ProjectInfoController {
 
-    @Autowired
-    private ProjectInfoRepository projectInfoRepository;
+	private final ProjectInfoService projectInfoService;
 
-    // Get all projects
-    @GetMapping
-    public List<ProjectInfo> getAllProjects() {
-        return projectInfoRepository.findAll();
+    public ProjectInfoController(ProjectInfoService projectInfoService) {
+        this.projectInfoService = projectInfoService;
     }
 
-    // Create a new project
     @PostMapping
-    public ProjectInfo createProject(@RequestBody ProjectInfo projectInfo) {
-        return projectInfoRepository.save(projectInfo);
+    public ResponseEntity<ProjectInfoDTO> createProjectInfo(@RequestBody ProjectInfoDTO projectInfoDTO) {
+        ProjectInfoDTO createdProjectInfo = projectInfoService.createProjectInfo(projectInfoDTO);
+        return ResponseEntity.ok(createdProjectInfo);
     }
 
-    // Get project by id
-    @GetMapping("/{id}")
-    public ResponseEntity<ProjectInfo> getProjectById(@PathVariable Long id) {
-        ProjectInfo projectInfo = projectInfoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Project not found with id: " + id));
+    @GetMapping("/{projectId}")
+    public ResponseEntity<ProjectInfoDTO> getProjectInfoById(@PathVariable Long projectId) {
+        ProjectInfoDTO projectInfo = projectInfoService.getProjectInfoById(projectId);
         return ResponseEntity.ok(projectInfo);
     }
 
-    // Update project
-    @PutMapping("/{id}")
-    public ResponseEntity<ProjectInfo> updateProject(@PathVariable Long id, @RequestBody ProjectInfo projectInfoDetails) {
-        ProjectInfo existingProject = projectInfoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Project not found with id: " + id));
-
-        // Update the project details with the values provided in the request body
-        existingProject.setProjectName(projectInfoDetails.getProjectName());
-        existingProject.setDepartment(projectInfoDetails.getDepartment());
-        existingProject.setLocation(projectInfoDetails.getLocation());
-        existingProject.setClients(projectInfoDetails.getClients());
-        existingProject.setProjectExpirationTime(projectInfoDetails.getProjectExpirationTime());
-        existingProject.setProjectStartDate(projectInfoDetails.getProjectStartDate());
-
-        ProjectInfo updatedProject = projectInfoRepository.save(existingProject);
-        return ResponseEntity.ok(updatedProject);
+    @GetMapping
+    public ResponseEntity<List<ProjectInfoDTO>> getAllProjectInfos() {
+        List<ProjectInfoDTO> projectInfos = projectInfoService.getAllProjectInfos();
+        return ResponseEntity.ok(projectInfos);
     }
 
-    // Delete project
-    @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteProject(@PathVariable Long id) {
-        ProjectInfo projectInfo = projectInfoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Project not found with id: " + id));
-
-        projectInfoRepository.delete(projectInfo);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @PutMapping("/{projectId}")
+    public ResponseEntity<ProjectInfoDTO> updateProjectInfo(@PathVariable Long projectId, @RequestBody ProjectInfoDTO projectInfoDTO) {
+        ProjectInfoDTO updatedProjectInfo = projectInfoService.updateProjectInfo(projectId, projectInfoDTO);
+        return ResponseEntity.ok(updatedProjectInfo);
     }
-}
+
+    @DeleteMapping("/{projectId}")
+    public ResponseEntity<Void> deleteProjectInfo(@PathVariable Long projectId) {
+        projectInfoService.deleteProjectInfo(projectId);
+        return ResponseEntity.noContent().build();
+    }
+}  
