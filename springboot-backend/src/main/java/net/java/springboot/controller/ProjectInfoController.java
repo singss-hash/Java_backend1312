@@ -24,7 +24,7 @@ import net.java.springboot.service.ProjectInfoService;
 
 @RestController
 @RequestMapping("/projects")
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:4200")
 public class ProjectInfoController {
 
 	private final ProjectInfoService projectInfoService;
