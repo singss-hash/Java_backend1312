@@ -1,16 +1,14 @@
 package com.example.demo.Service;
 
 
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.example.demo.DTO.ProjectDTO;
 import com.example.demo.Entity.Project;
 import com.example.demo.Repository.ProjectRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 
