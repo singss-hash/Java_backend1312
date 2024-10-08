@@ -12,14 +12,69 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter 
-@Setter
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Data
+
 public class ProjectInfoDTO {
-	 @NotNull(message = "prjectID is mandatory")
+	 public Long getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
+	}
+
+	public Long getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public String getClient() {
+		return client;
+	}
+
+	public void setClient(String client) {
+		this.client = client;
+	}
+
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+
+	public LocalDate getExpDate() {
+		return expDate;
+	}
+
+	public void setExpDate(LocalDate expDate) {
+		this.expDate = expDate;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	@NotNull(message = "prjectID is mandatory")
 	 private Long projectId;
 
 	    @NotNull(message = "Company ID is mandatory")

@@ -8,18 +8,70 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-@Getter 
-@Setter
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Data
+
 public class EmployeeDTO {
-	 @NotBlank(message = "EmpId is mandatory")
+	 public Long getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(Long empId) {
+		this.empId = empId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmailId() {
+		return emailId;
+	}
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+
+	public String getDesignation() {
+		return designation;
+	}
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
+	public Long getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
+	}
+
+	public LocalDate getDoj() {
+		return doj;
+	}
+
+	public void setDoj(LocalDate doj) {
+		this.doj = doj;
+	}
+
+	@NotBlank(message = "EmpId is mandatory")
  private Long empId;
 
  @NotBlank(message = "First name is mandatory")

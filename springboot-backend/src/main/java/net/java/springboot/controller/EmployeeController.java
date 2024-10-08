@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import net.java.springboot.dto.EmployeeDTO;
 import net.java.springboot.service.EmployeeService;
 
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:4200/*")
 @RestController
 @Validated
 @RequestMapping("/api1/employees")

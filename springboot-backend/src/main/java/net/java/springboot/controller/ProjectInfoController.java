@@ -1,10 +1,7 @@
 package net.java.springboot.controller;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.java.springboot.dto.ProjectInfoDTO;
 import net.java.springboot.entity.ProjectInfo;
-import net.java.springboot.exception.ResourceNotFoundException;
-import net.java.springboot.repository.ProjectInfoRepository;
 import net.java.springboot.service.ProjectInfoService;
 
 @RestController
@@ -52,7 +47,7 @@ public class ProjectInfoController {
     }
 
     @PutMapping("/{projectId}")
-    public ResponseEntity<ProjectInfoDTO> updateProjectInfo(@PathVariable Long projectId, @RequestBody ProjectInfoDTO projectInfoDTO) {
+    public ResponseEntity<ProjectInfoDTO> updateProjectInfo(@PathVariable Long projectId, @RequestBody ProjectInfo projectInfoDTO) {
         ProjectInfoDTO updatedProjectInfo = projectInfoService.updateProjectInfo(projectId, projectInfoDTO);
         return ResponseEntity.ok(updatedProjectInfo);
     }

@@ -1,6 +1,6 @@
 package net.java.springboot.service;
 
-//EmployeeServiceImpl.java
+
 
 
 import java.util.List;
@@ -15,11 +15,11 @@ import net.java.springboot.repository.EmployeeRepository;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-
+	 @Autowired
  private final EmployeeRepository employeeRepository;
 
  // Constructor-based injection
- @Autowired
+
  public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
      this.employeeRepository = employeeRepository;
  }

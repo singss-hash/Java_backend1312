@@ -14,21 +14,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-//CompanyOrgController.java
-
-
 import net.java.springboot.dto.CompanyOrgDTO;
 import net.java.springboot.service.CompanyOrgService;
 
+//CompanyOrgController.java
+
+
+import net.java.springboot.service.CompanyOrgServiceImpl;
+
 @RestController
 @RequestMapping("/api/companyorgs")
-@CrossOrigin(origins = {"http://localhost:4200/ **"}) 
+@CrossOrigin(origins = {"http://localhost:4200"}) 
 public class CompanyOrgController {
-
+	@Autowired
  private final CompanyOrgService companyOrgService;
 
- @Autowired
- public CompanyOrgController(CompanyOrgService companyOrgService) {
+
+ public CompanyOrgController(CompanyOrgServiceImpl companyOrgService) {
      this.companyOrgService = companyOrgService;
  }
 

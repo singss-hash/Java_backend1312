@@ -1,23 +1,23 @@
 package net.java.springboot.service;
-//CompanyOrgServiceImpl.java
 
 
-import net.java.springboot.dto.CompanyOrgDTO;
-import net.java.springboot.entity.CompanyOrg;
-import net.java.springboot.repository.CompanyOrgRepository;
-import net.java.springboot.service.CompanyOrgService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import net.java.springboot.dto.CompanyOrgDTO;
+import net.java.springboot.entity.CompanyOrg;
+import net.java.springboot.repository.CompanyOrgRepository;
+
 @Service
 public class CompanyOrgServiceImpl implements CompanyOrgService {
-
+	@Autowired
  private final CompanyOrgRepository companyOrgRepository;
 
- @Autowired
+
  public CompanyOrgServiceImpl(CompanyOrgRepository companyOrgRepository) {
      this.companyOrgRepository = companyOrgRepository;
  }
