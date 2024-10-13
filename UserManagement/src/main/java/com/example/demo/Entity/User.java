@@ -17,7 +17,7 @@ public class User {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id",unique = true)
     private long userId;
 
     @Column(name = "name")
@@ -26,17 +26,28 @@ public class User {
     @Column(name = "email_id", unique = true)
     private String emailId;
 
-    @Column(name = "department_id")
-    private long departmentId;
+    @Column(name = "department_name")
+    private String departmentName;
 
-    @Column(name = "project_id")
-    private long projectId;
+    @Column(name = "project_name")
+    private String projectName;
 
-    @Column(name = "password")
-    private String passWord;
+    @Column(name = "designation")
+    private String designation;
 
-    @Column(name = "roles")
-    private String roles;
+//    @Column(name = "department_id")
+//    private long departmentId;
+//
+//    @Column(name = "project_id")
+//    private long projectId;
+//
+//    @Column(name = "password")
+//    private String passWord;
+
+//    @Column(name = "roles")
+//    private String roles;
+
+
 
     // Override equals and hashCode if needed
     @Override

@@ -22,14 +22,26 @@ public class UserDTO {
 	@Size(max = 50, message = "Email cannot be more than 50 characters")
 	private String emailId;
 
-	@NotNull(message = "Password must be strong")
-	private String passWord;
+	@NotNull(message= "department_name is necessary")
+	private String departmentName;
 
-	@NotNull(message = "DepartmentID is mandatory")
-	private long departmentId;
+	@NotNull(message = "project_name is necessary")
+	private String projectName;
 
-	@NotNull(message = "ProjectID is mandatory")
-	private long projectId;
+	@NotNull(message = "designation is necessary")
+	private String designation;
+
+//	@NotNull(message = "Password must be strong")
+//	private String passWord;
+//
+//	@NotNull(message = "DepartmentID is mandatory")
+//	private long departmentId;
+//
+//	@NotNull(message = "ProjectID is mandatory")
+//	private long projectId;
+
+//	@NotNull(message = "Roles is mandatory")
+//	private long roles;
 
 
 }
