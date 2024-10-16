@@ -9,3 +9,4 @@
 -Maven
 -MySql database
 ## Create a MySQL database named Emp_management.
+![Screenshot (3)](https://github.com/user-attachments/assets/2b21507f-b955-4c39-a95c-2d7eb60af963)
