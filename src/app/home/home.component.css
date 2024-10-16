@@ -1,0 +1,27 @@
+/* Footer Styles */
+.footer {
+  background-color: rgb(165, 16, 16); /* Red background for the footer */
+  color: white; /* White text color */
+  padding: 1rem 0; /* Padding for better spacing */
+  position: fixed; /* Fix the footer at the bottom */
+  bottom: 0; /* Stick to the bottom of the page */
+  width: 100%; /* Full width */
+  z-index: 1000; /* Ensure it stays on top of other content */
+  text-align: center; /* Center the text */
+  font-weight: bold; /* Make the text bold */
+}
+
+.footer span {
+  font-size: 1rem; /* Adjust font size in footer */
+}
+
+body {
+  margin-bottom: 70px; /* Add bottom margin to prevent content overlap with footer */
+}
+
+/* Carousel Image Styling */
+.carousel-item img {
+  height: 900px; /* Set the height of the carousel images */
+  object-fit: cover; /* Ensure the images cover the entire area */
+  width: 100%; /* Full width of the carousel */
+}

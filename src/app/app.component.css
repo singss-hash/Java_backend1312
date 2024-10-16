@@ -1,0 +1,26 @@
+.navbar {
+    background-color: white; /* Navbar background color */
+    color: rgb(222, 37, 37); /* Text color */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    font-size: 6rem; /* Adjust the font size */
+}
+
+.nav-item {
+    color: rgb(199, 27, 27); /* Text color */
+    margin-left: 2.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.nav-link {
+    color: rgb(203, 35, 35) !important; /* Ensure the link color is black */
+}
+
+.navbar-logo {
+    height: 100%; /* Logo height matches the navbar */
+    max-height: 3rem;
+    margin-left: 2.5rem; /* Set a max height for the logo to ensure it fits well */
+}
+

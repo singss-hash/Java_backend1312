@@ -1,0 +1,62 @@
+<div class="container">
+  <div align="right">
+    <button mat-raised-button color="accent" routerLink="/project-list">Go to Project List</button>
+  </div>
+
+  <div class="card p-5 mt-2">
+    <form #projectForm="ngForm" (ngSubmit)="saveProject(projectForm)">
+    <!-- <form #projectForm="ngForm" (ngSubmit)="saveProject(projectForm)">
+       -->
+      <!-- Project ID -->
+      <mat-form-field appearance="outline">
+        <mat-label>Project ID</mat-label>
+        <input matInput placeholder="Project ID" name="projectId" [(ngModel)]="project.projectId">
+        <mat-icon matSuffix>numbers</mat-icon>
+      </mat-form-field>
+
+      <!-- Project Name -->
+      <mat-form-field appearance="outline">
+        <mat-label>Project Name</mat-label>
+        <input matInput placeholder="Project Name" name="projectName" [(ngModel)]="project.projectName">
+        <mat-icon matSuffix>business</mat-icon>
+      </mat-form-field>
+
+      <!-- Department ID -->
+      <mat-form-field appearance="outline">
+        <mat-label>Department ID</mat-label>
+        <input matInput placeholder="Department ID" name="departmentID" [(ngModel)]="project.departmentID">
+        <mat-icon matSuffix>apartment</mat-icon>
+      </mat-form-field>
+
+      <!-- Department Name -->
+      <mat-form-field appearance="outline">
+        <mat-label>Department Name</mat-label>
+        <input matInput placeholder="Department Name" name="departmentName" [(ngModel)]="project.departmentName">
+        <mat-icon matSuffix>work</mat-icon>
+      </mat-form-field>
+
+      <!-- Description -->
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="Project Description" name="description" [(ngModel)]="project.description"></textarea>
+        <mat-icon matSuffix>description</mat-icon>
+      </mat-form-field>
+
+      <!-- Client Name -->
+      <mat-form-field appearance="outline">
+        <mat-label>Client Name</mat-label>
+        <input matInput placeholder="Client Name" name="client" [(ngModel)]="project.client">
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-divider></mat-divider>
+      
+      <!-- Action Buttons -->
+      <div class="text-center mt-3">
+        <button mat-raised-button class="m-2" type="reset">Clear</button>
+        <button mat-raised-button color="primary" class="m-2" type="submit">Save</button>
+      </div>
+
+    </form>
+  </div>
+</div>
