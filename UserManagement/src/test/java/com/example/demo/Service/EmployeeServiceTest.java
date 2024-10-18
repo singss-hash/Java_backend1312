@@ -37,7 +37,6 @@ class EmployeeServiceTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        // Initialize the Employee and EmployeeDTO objects
         employee = new Employee();
         employee.setFirstName("John");
         employee.setLastName("Doe");
