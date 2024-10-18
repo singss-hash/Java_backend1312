@@ -1,17 +1,19 @@
-package com.example.demo.DTO;
+ package com.example.demo.DTO;
 
-import lombok.Getter;
-import lombok.Setter;
+ public class AuthResponseDTO {
+     private String token;
 
-@Getter
-@Setter
-public class AuthResponseDTO {
-    private String token;
+     public AuthResponseDTO(String token) {
+         this.token = token;
+     }
 
-    public AuthResponseDTO(String token, String loginSuccessful) {
-        this.token = token;
-    }
+     public String getToken() {
+         return token;
+     }
 
-}
+     public void setToken(String token) {
+         this.token = token;
+     }
+ }
 
 

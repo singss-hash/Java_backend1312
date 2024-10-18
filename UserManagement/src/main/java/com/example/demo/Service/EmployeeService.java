@@ -11,7 +11,7 @@ public interface EmployeeService {
 
 
 
-    Employee register(EmployeeDTO employeeDT);
+    Employee register(EmployeeDTO employeeDTO);
     AuthResponseDTO login(String email, String password);
 }
 
