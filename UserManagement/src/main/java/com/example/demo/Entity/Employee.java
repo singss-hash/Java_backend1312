@@ -30,14 +30,11 @@ public class Employee {
     @JsonIgnore
     private String password;
 
-       private String role;
-
-
+    private String role;
 
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Project project;
-
 
 }
 

@@ -17,10 +17,10 @@ import static org.mockito.Mockito.*;
 class ProjectServiceTest {
 
     @Mock
-    private ProjectRepository projectRepository; // Mock the repository
+    private ProjectRepository projectRepository;
 
     @InjectMocks
-    private ProjectServiceImpl projectServiceImpl; // Inject the repository into the service
+    private ProjectServiceImpl projectServiceImpl;
 
     private Project project;
     private ProjectDTO projectDTO;
@@ -47,7 +47,7 @@ class ProjectServiceTest {
         List<Project> projectList = new ArrayList<>();
         projectList.add(project);
 
-        when(projectRepository.findAll()).thenReturn(projectList); // Mock the repository behavior
+        when(projectRepository.findAll()).thenReturn(projectList);
 
 
         List<ProjectDTO> result = projectServiceImpl.getALLProjects();
@@ -61,7 +61,7 @@ class ProjectServiceTest {
     @Test
     void testGetProjectById() {
 
-        when(projectRepository.findById(1L)).thenReturn(Optional.of(project)); // Mock the repository behavior
+        when(projectRepository.findById(1L)).thenReturn(Optional.of(project));
 
 
         ProjectDTO result = projectServiceImpl.getProjectById(1L);
@@ -75,8 +75,8 @@ class ProjectServiceTest {
     @Test
     void testCreateProject() {
 
-        when(projectRepository.existsByProjectId(100L)).thenReturn(false); // Mock projectId existence check
-        when(projectRepository.save(any(Project.class))).thenReturn(project); // Mock save operation
+        when(projectRepository.existsByProjectId(100L)).thenReturn(false);
+        when(projectRepository.save(any(Project.class))).thenReturn(project);
 
 
         ProjectDTO result = projectServiceImpl.createProject(projectDTO);
@@ -91,14 +91,14 @@ class ProjectServiceTest {
     @Test
     void testCreateProject_ProjectExists() {
 
-        when(projectRepository.existsByProjectId(100L)).thenReturn(true); // Mock projectId existence check
+        when(projectRepository.existsByProjectId(100L)).thenReturn(true);
 
 
         Exception exception = assertThrows(RuntimeException.class, () -> {
             projectServiceImpl.createProject(projectDTO);
         });
 
-        assertEquals("Project with projectId 100 already exists!", exception.getMessage()); // Updated expected message
+        assertEquals("Project with projectId 100 already exists!", exception.getMessage());
         verify(projectRepository, times(1)).existsByProjectId(100L);
         verify(projectRepository, never()).save(any(Project.class));
     }
@@ -106,8 +106,8 @@ class ProjectServiceTest {
     @Test
     void testUpdateProject() {
 
-        when(projectRepository.findById(1L)).thenReturn(Optional.of(project)); // Mock finding the project by id
-        when(projectRepository.save(any(Project.class))).thenReturn(project);  // Mock save operation
+        when(projectRepository.findById(1L)).thenReturn(Optional.of(project));
+        when(projectRepository.save(any(Project.class))).thenReturn(project);
 
 
         projectDTO.setProjectName("Updated Project");
@@ -123,14 +123,14 @@ class ProjectServiceTest {
     @Test
     void testUpdateProject_ProjectNotFound() {
 
-        when(projectRepository.findById(1L)).thenReturn(Optional.empty()); // Mock the absence of the project
+        when(projectRepository.findById(1L)).thenReturn(Optional.empty());
 
 
         Exception exception = assertThrows(RuntimeException.class, () -> {
             projectServiceImpl.updateProject(1L, projectDTO);
         });
 
-        assertEquals("Project not found with id 1", exception.getMessage()); // Updated expected message
+        assertEquals("Project not found with id 1", exception.getMessage());
         verify(projectRepository, times(1)).findById(1L);
         verify(projectRepository, never()).save(any(Project.class));
     }
@@ -138,7 +138,7 @@ class ProjectServiceTest {
     @Test
     void testDeleteProject() {
 
-        when(projectRepository.findById(1L)).thenReturn(Optional.of(project)); // Mock finding the project by id
+        when(projectRepository.findById(1L)).thenReturn(Optional.of(project));
 
 
         doNothing().when(projectRepository).delete(project);
@@ -154,14 +154,14 @@ class ProjectServiceTest {
     @Test
     void testDeleteProject_ProjectNotFound() {
 
-        when(projectRepository.findById(1L)).thenReturn(Optional.empty()); // Mock the absence of the project
+        when(projectRepository.findById(1L)).thenReturn(Optional.empty());
 
 
         Exception exception = assertThrows(RuntimeException.class, () -> {
             projectServiceImpl.deleteProject(1L);
         });
 
-        assertEquals("Project not found with id 1", exception.getMessage()); // Updated expected message to lowercase 'id'
+        assertEquals("Project not found with id 1", exception.getMessage());
         verify(projectRepository, times(1)).findById(1L);
         verify(projectRepository, never()).delete(any(Project.class));
     }

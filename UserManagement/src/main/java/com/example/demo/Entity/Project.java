@@ -6,10 +6,6 @@ import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
 
-
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
 @Setter
 @Getter
 @Entity

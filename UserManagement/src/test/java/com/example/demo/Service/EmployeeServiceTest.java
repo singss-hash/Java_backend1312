@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Optional;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -54,15 +54,15 @@ class EmployeeServiceTest {
 
     @Test
     void testRegister() {
-        when(employeeRepository.save(any(Employee.class))).thenReturn(employee); // Mock the save behavior
+        when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
 
-        Employee result = employeeServiceImpl.register(employeeDTO); // When
+        Employee result = employeeServiceImpl.register(employeeDTO);
 
         assertNotNull(result);
         assertEquals("John", result.getFirstName());
         assertEquals("Doe", result.getLastName());
         assertEquals("john.doe@example.com", result.getEmailId());
-        assertNotEquals("password123", result.getPassword()); // Ensure password is encoded
+        assertNotEquals("password123", result.getPassword());
         verify(employeeRepository, times(1)).save(any(Employee.class));
     }
 
@@ -71,10 +71,10 @@ class EmployeeServiceTest {
         String email = "john.doe@example.com";
         String password = "password123";
 
-        when(employeeRepository.findByEmailId(email)).thenReturn(Optional.of(employee)); // Mock finding the user
+        when(employeeRepository.findByEmailId(employee.getEmailId())).thenReturn(List.of(employee)); // Mock finding the user
         when(jwtTokenProvider.createToken(email, employee.getRole())).thenReturn("mockToken"); // Mock token creation
 
-        AuthResponseDTO result = employeeServiceImpl.login(email, password); // When
+        AuthResponseDTO result = employeeServiceImpl.login(email, password);
 
         assertNotNull(result);
         assertEquals("mockToken", result.getToken());
@@ -86,13 +86,13 @@ class EmployeeServiceTest {
         String email = "john.doe@example.com";
         String wrongPassword = "wrongPassword";
 
-        when(employeeRepository.findByEmailId(email)).thenReturn(Optional.of(employee)); // Mock finding the user
+        when(employeeRepository.findByEmailId(email)).thenReturn(List.of(employee));
 
         Exception exception = assertThrows(UserNotFoundException.class, () -> {
-            employeeServiceImpl.login(email, wrongPassword); // When & Then
+            employeeServiceImpl.login(email, wrongPassword);
         });
 
-        assertEquals("Invalid password", exception.getMessage()); // Ensure the exception message is correct
+        assertEquals("Invalid password", exception.getMessage());
         verify(employeeRepository, times(1)).findByEmailId(email);
     }
 
@@ -101,13 +101,14 @@ class EmployeeServiceTest {
         String email = "nonexistent@example.com";
         String password = "password123";
 
-        when(employeeRepository.findByEmailId(email)).thenReturn(Optional.empty()); // Mock user not found
+        when(employeeRepository.findByEmailId(email)).thenReturn(List.of());
 
-        Exception exception = assertThrows(UserNotFoundException.class, () -> {
-            employeeServiceImpl.login(email, password); // When & Then
+
+        UserNotFoundException exception = assertThrows(UserNotFoundException.class, () -> {
+            employeeServiceImpl.login(email, password);
         });
 
-        assertEquals("User not found", exception.getMessage()); // Ensure the exception message is correct
+        assertEquals("User not found", exception.getMessage());
         verify(employeeRepository, times(1)).findByEmailId(email);
     }
 }

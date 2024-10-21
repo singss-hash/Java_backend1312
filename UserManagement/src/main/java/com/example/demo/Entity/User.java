@@ -35,21 +35,6 @@ public class User {
     @Column(name = "designation")
     private String designation;
 
-//    @Column(name = "department_id")
-//    private long departmentId;
-//
-//    @Column(name = "project_id")
-//    private long projectId;
-//
-//    @Column(name = "password")
-//    private String passWord;
-
-//    @Column(name = "roles")
-//    private String roles;
-
-
-
-    // Override equals and hashCode if needed
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;

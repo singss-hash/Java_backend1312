@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +40,7 @@ class UserServiceTest {
 
     @Test
     void testGetALLUsers() {
-        when(userRepository.findAll()).thenReturn(Arrays.asList(user));
+        when(userRepository.findAll()).thenReturn(Collections.singletonList(user));
 
         List<UserDTO> users = userService.getALLUsers();
 
@@ -75,9 +75,7 @@ class UserServiceTest {
     void testCreateUser_UserExists() {
         when(userRepository.existsByUserId(userDTO.getUserId())).thenReturn(true);
 
-        Exception exception = assertThrows(RuntimeException.class, () -> {
-            userService.createUser(userDTO);
-        });
+        Exception exception = assertThrows(RuntimeException.class, () -> userService.createUser(userDTO));
 
         assertEquals("User with userId " + userDTO.getUserId() + " already exists!", exception.getMessage());
         verify(userRepository, times(1)).existsByUserId(userDTO.getUserId());
@@ -100,9 +98,7 @@ class UserServiceTest {
     void testUpdateUser_UserNotFound() {
         when(userRepository.findByUserId(101L)).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(RuntimeException.class, () -> {
-            userService.updateUser(101L, userDTO);
-        });
+        Exception exception = assertThrows(RuntimeException.class, () -> userService.updateUser(101L, userDTO));
 
         assertEquals("User not found with userId: 101", exception.getMessage());
         verify(userRepository, times(1)).findByUserId(101L);
@@ -123,9 +119,7 @@ class UserServiceTest {
     void testDeleteUser_UserNotFound() {
         when(userRepository.findByUserId(101L)).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(RuntimeException.class, () -> {
-            userService.deleteUser(101L);
-        });
+        Exception exception = assertThrows(RuntimeException.class, () -> userService.deleteUser(101L));
 
         assertEquals("User not found with userId: 101", exception.getMessage());
         verify(userRepository, times(1)).findByUserId(101L);

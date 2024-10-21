@@ -1,4 +1,3 @@
-
 package com.example.demo.DTO;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -39,9 +38,7 @@ public class EmployeeDTO {
     @NotBlank(message = "Role is required")
     private String role;
 
-
-
-
+    @NotBlank(message = "DepartmentId is mandatory")
     private Integer departmentId;
 }
 
